@@ -5,7 +5,7 @@ export class PokemonController {
         try {
             let page = req.query.page ? +req.query.page : 1;
             let limit = req.query.limit ? +req.query.limit : 12;
-            let totalPage = Math.ceil(20 / limit);
+            let totalPage = 4;
             let offset = (page - 1) * limit;
             const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
             const response = await axios.get(url);
