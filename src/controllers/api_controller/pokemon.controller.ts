@@ -14,14 +14,12 @@ export class PokemonController {
             if (pokemons) {
                 const dataArray = [];
                 for (const pokemon of pokemons) {
-                    let name = pokemon.name;
-                    const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+                    const url = pokemon.url;
                     const response = await axios.get(url);
                     const image = response.data.sprites.front_default;
-                    const id = response.data.id;
                     dataArray.push({
-                        id: id,
-                        name: name,
+                        id: response.data.id,
+                        name: response.data.name,
                         image: image
                     })
                 }
