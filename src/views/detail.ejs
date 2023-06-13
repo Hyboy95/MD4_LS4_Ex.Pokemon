@@ -108,18 +108,17 @@
                                         </div>
         
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Kỹ năng 1</div>
-                                            <div class="col-lg-9 col-md-8"><%= pokemon.skill_1 %></div>
-                                        </div>
-        
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Kỹ năng 2</div>
-                                            <div class="col-lg-9 col-md-8"><%= pokemon.skill_2 %></div>
+                                            <div class="col-lg-3 col-md-4 label">Kỹ năng</div>
+                                            <div class="col-lg-9 col-md-8">
+                                            <% pokemon.skills.forEach(skill => {%>
+                                            <%= skill %> <br>
+                                            <% }) %>
+                                            </div>
                                         </div>
         
                                     </div>
  
-                                    <a href="/" class="btn btn-primary mt-3">Quay lại</a>
+                                    <a href="/?page=<%= pageCurrent %>&limit=<%= limit %>" class="btn btn-primary mt-3">Quay lại</a>
         
                                 </div><!-- End Bordered Tabs -->
                             </div>

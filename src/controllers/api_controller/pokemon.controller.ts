@@ -3,13 +3,9 @@ import axios from "axios";
 export class PokemonController {
     static async getAllPokemon(req: any, res: any) {
         try {
-            let limit = 12;
-            let totalPage = Math.ceil(20 / limit);
             let page = req.query.page ? +req.query.page : 1;
-            if (req.query.limit) {
-                limit = req.query.limit;
-                totalPage = Math.ceil(20 / limit);
-            }
+            let limit = req.query.limit ? +req.query.limit : 12;
+            let totalPage = Math.ceil(20 / limit);
             let offset = (page - 1) * limit;
             const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
             const response = await axios.get(url);
@@ -41,20 +37,28 @@ export class PokemonController {
     static async getDetailPokemon(req: any, res: any) {
         try {
             let id = req.params.id;
+            let page = req.query.page ? +req.query.page : 1;
+            let limit = req.query.limit ? +req.query.limit : 12;
             if (id) {
                 const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
                 const response = await axios.get(url);
                 const data = response.data;
+                let skillArray = data.abilities;
+                let skills = [];
+                skillArray.forEach((element: any) => {
+                    skills.push(element.ability.name)
+                });
+ 
                 const pokemonDetail = {
                     id: id,
+                    skills: skills,
                     name: data.name,
                     height: data.height,
                     base_experience: data.base_experience,
-                    skill_1: data.abilities[0].ability.name,
-                    skill_2: data.abilities[1].ability.name,
                     image: data.sprites.front_default
                 }
-                res.render ('detail', {pokemon: pokemonDetail});
+                
+                res.render ('detail', {pokemon: pokemonDetail, pageCurrent: page, limit: limit});
             } else {
                 res.end('<h1>Error<h1>');
             }
