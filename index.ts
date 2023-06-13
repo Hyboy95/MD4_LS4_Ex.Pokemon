@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import 'dotenv/config';
 import { APIRouter } from "./src/routers/api.router"
 
-const PORT = process.env.POST;
+const PORT = process.env.PORT;
 
 const app = express();
 app.set("view engine", "ejs");
